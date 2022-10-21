@@ -1,68 +1,54 @@
 #!/usr/bin/python3
-"""
-This module defines a Square class
-
-Its implements value and type checks for its attributes
-Attributes:
-    area
-    my_print
+ """class Square that defines a square by: 
+Private instance attribute: size:
+- property def size(self)
+- property setter def size(self, value)
+Instantiation with optional size.
+Public instance method: def area(self).
 """
 
 
 class Square:
-    """Square implementation
-    """
-    def __init__(self, size=0, position=(0, 0)):
-        self.size = size
-        self.position = position
+    """Initializes the data."""
+    def __init__(self, size=0):
+        self.__size = size
 
-    def __str__(self):
+    def __eq__(self, other):
+        """Equal."""
+        if hasattr(other, 'size'):
+            return self.__size == other.__size
+        return self.__size == other
 
-        txt = ''
-        if (self.__size == 0):
-            pass
-        else:
-            for i in range(self.position[1]):
-                txt += '\n'
+    def __ne__(self, other):
+        """Not equal."""
+        return not self.__eq__(other)
 
-            for i in range(self.size):
-                txt += ' ' * self.position[0] + '#' * self.size
+    def __lt__(self, other):
+        """Less than."""
+        if hasattr(other, 'size'):
+            return self.__size < other.__size
+        return self.__size < other
 
-        return txt
+    def __le__(self, other):
+        """Less than or equal."""
+        if hasattr(other, 'size'):
+            return self.__size <= other.__size
+        return self.__size <= other
 
     @property
     def size(self):
+        """Retrieves the size."""
         return self.__size
 
     @size.setter
-    def size(self, size):
-        if type(size) != int:
-            raise TypeError('size must be an integer')
-        elif size < 0:
-            raise ValueError('size must be >= 0')
-        self.__size = size
+    def size(self, value):
+        """Sets the size to a value."""
+        if not isinstance(value, int) or not isinstance(value, float):
+            raise TypeError("size must be a number")
+        elif value < 0:
+            raise ValueError("size must be >= 0")
+        self.__size = value
 
     def area(self):
-        """calculates the square area
-        """
-        return (self.size ** 2)
-
-    def my_print(self):
-        """prints a square  with the corresponding size
-        """
-        print(self.__str__())
-
-    @property
-    def position(self):
-        return self.__position
-
-    @position.setter
-    def position(self, position):
-        if type(position) != tuple or \
-            len(position) != 2 or \
-            not all(isinstance(el, int) for el in position) or \
-                not all(el >= 0 for el in position):
-
-            raise TypeError('position must be a tuple of 2 positive integers')
-
-        self.__position = position
+        """Returns the current square area."""
+        return self.__size ** 2

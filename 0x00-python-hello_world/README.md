@@ -1,1 +1,1 @@
-# Python Hello world and C interview prep
+0x00-python-hello_world
